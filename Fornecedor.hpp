@@ -15,6 +15,7 @@ public:
     float getValorCredito();
     void setValorDivida(float valorDivida);
     float getValorDivida();
+    
     float obterSaldo();
 
 private:

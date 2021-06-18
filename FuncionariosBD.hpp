@@ -4,6 +4,11 @@
 #include<iostream>
 #include<vector>
 #include "Pessoa.hpp"
+#include "Fornecedor.hpp"
+#include "Empregado.hpp"
+#include "Administrador.hpp"
+#include "Operario.hpp"
+#include "Vendedor.hpp"
 
 using namespace std;
 
@@ -13,11 +18,23 @@ public:
     
     FuncionariosBD();
     
-    void adiciona(Pessoa funcionario);
-    void lista();
+    void adicionaFornecedor(Fornecedor fornecedor);
+    void adicionaAdministrador(Administrador administrador);
+    void adicionaOperario(Operario fornecedor);
+    void adicionaVendedor(Vendedor vendedor);
+
+    vector<Fornecedor> getFornecedores();
+    vector<Administrador> getAdministradores();
+    vector<Operario> getOperarios();
+    vector<Vendedor> getVendedores();
 
 private:
-    vector<Pessoa> funcionarios;
+    vector<Fornecedor> fornecedores;
+    vector<Administrador> administradores;
+    vector<Operario> operarios;
+    vector<Vendedor> vendedores;
+
+    void adicionaPessoa(Pessoa pessoa);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "Vendedor.hpp"
+#include "Empregado.cpp"
 
 Vendedor::Vendedor(string nome, string endereco, string telefone, int codigoSetor, 
                     float salarioBase, float imposto, float valorVendas, float comissao) 
