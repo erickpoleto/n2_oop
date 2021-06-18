@@ -19,9 +19,13 @@ public:
     FuncionariosBD();
     
     void adicionaFornecedor(Fornecedor fornecedor);
+    void removeFornecedor(int pos);
     void adicionaAdministrador(Administrador administrador);
+    void removeAdministrador(int pos);
     void adicionaOperario(Operario fornecedor);
+    void removeOperario(int pos);
     void adicionaVendedor(Vendedor vendedor);
+    void removeVendedor(int pos);
 
     vector<Fornecedor> getFornecedores();
     vector<Administrador> getAdministradores();

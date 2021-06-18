@@ -15,6 +15,7 @@ public:
     PessoaService(FuncionariosBD funcionariosBD);
     
     void incluirPessoa();
+    void atualizarPessoa();
     void listarCadastros();
     void listarFornecedores();
     void listarEmpregados();
@@ -24,24 +25,36 @@ private:
 
     struct pessoa
     {
-        string nome;
-        string endereco;
-        string telefone;
+        string nome, endereco, telefone;
     } typedef pessoa;
+
     struct empregado
     {
         int codigoSetor;
         float salarioBase; 
         float imposto;
     } typedef empregado;
- 
+    
+    struct encontraPessoa
+    {
+        string nome, telefone;
+    } typedef encontraPessoa;
+
+    int menuTipoPessoa();
+
     pessoa preenchimentoPadraoPessoa();
     empregado preenchimentoPadraoEmpregado();
-    void incluirFornecedor();
-    void incluirOperario();
-    void incluirAdministrador();
-    void incluirVendedor();
+    encontraPessoa preenchimentoEncontraPessoa();
     
+    void incluirFornecedor();
+    void atualizarFornecedor();
+    void incluirOperario();
+    void atualizarOperario();
+    void incluirAdministrador();
+    void atualizarAdministrador();
+    void incluirVendedor();
+    void atualizarVendedor();
+
     void imprimeVendedoresCadastrados(int contagem, int fim, vector<Vendedor> vendedores, bool apenasDadosPessoais);
     void imprimeOperariosCadastrados(int contagem, int fim, vector<Operario> operarios, bool apenasDadosPessoais);
     void imprimeAdministradoresCadastrados(int contagem, int fim, vector<Administrador> administradores, bool apenasDadosPessoais);

@@ -12,7 +12,7 @@ PessoaService::PessoaService(FuncionariosBD funcionariosBD)
     PessoaService::funcionariosBD = funcionariosBD;
 }
 
-void PessoaService::incluirPessoa()
+int PessoaService::menuTipoPessoa()
 {
     int tipo;
     cout << "\n -- Inclusão de pessoas-- \n" << endl;
@@ -22,7 +22,34 @@ void PessoaService::incluirPessoa()
     cout << "4 - fornecedor" << endl;
     cout << "Escolha uma das opções:";
     cin >> tipo;
-    
+    return tipo;
+}
+
+void PessoaService::atualizarPessoa()
+{
+    int tipo = menuTipoPessoa();
+    switch(tipo) {
+        case 1:
+            this->atualizarVendedor();
+            break;
+        case 2:
+            this->atualizarOperario();
+            break;
+        case 3:
+            this->atualizarAdministrador();
+            break;
+        case 4:
+            this->atualizarFornecedor();
+            break;
+        default:
+            this->atualizarVendedor();
+            break;
+    }
+}
+
+void PessoaService::incluirPessoa()
+{
+    int tipo = menuTipoPessoa();
     switch(tipo) {
         case 1:
             this->incluirVendedor();
@@ -58,6 +85,32 @@ void PessoaService::incluirVendedor()
     funcionariosBD.adicionaVendedor(vendedor);
 }
 
+void PessoaService::atualizarVendedor()
+{   
+    encontraPessoa encontraPessoa = preenchimentoEncontraPessoa();
+    bool encontrado = false;
+    for(int i = 0; i < funcionariosBD.getVendedores().size(); i++)
+    {
+        if(funcionariosBD.getVendedores()[i].getNome() == encontraPessoa.nome && funcionariosBD.getVendedores()[i].getTelefone() == encontraPessoa.telefone)
+        {   
+            char atualizar;
+            cout << "atualizar? s/n";
+            cin >> atualizar;
+            if(atualizar == 's')
+            {
+                funcionariosBD.removeVendedor(i);
+                incluirVendedor();
+                printf("atualizado com sucesso!");
+            }
+            encontrado = true;
+        };
+    }
+    if(!encontrado)
+    {
+        imprimeMensagemNaoEncontrado();
+    }
+}
+
 void PessoaService::incluirOperario()
 {
     pessoa pessoa = preenchimentoPadraoPessoa();
@@ -74,6 +127,32 @@ void PessoaService::incluirOperario()
     funcionariosBD.adicionaOperario(operario);
 }
 
+void PessoaService::atualizarOperario()
+{   
+    encontraPessoa encontraPessoa = preenchimentoEncontraPessoa();
+    bool encontrado = false;
+    for(int i = 0; i < funcionariosBD.getOperarios().size(); i++)
+    {
+        if(funcionariosBD.getOperarios()[i].getNome() == encontraPessoa.nome && funcionariosBD.getOperarios()[i].getTelefone() == encontraPessoa.telefone)
+        {   
+            char atualizar;
+            cout << "atualizar? s/n";
+            cin >> atualizar;
+            if(atualizar == 's')
+            {
+                funcionariosBD.removeOperario(i);
+                incluirOperario();
+                printf("atualizado com sucesso!");
+            }
+            encontrado = true;
+        };
+    }
+    if(!encontrado) 
+    {
+        imprimeMensagemNaoEncontrado();
+    }
+}
+
 void PessoaService::incluirAdministrador()
 {
     pessoa pessoa = preenchimentoPadraoPessoa();
@@ -86,6 +165,33 @@ void PessoaService::incluirAdministrador()
     Administrador administrador(pessoa.nome, pessoa.endereco, pessoa.telefone, empregado.codigoSetor, 
         empregado.salarioBase, empregado.imposto, ajudaDeCusto);
     funcionariosBD.adicionaAdministrador(administrador);
+}
+
+
+void PessoaService::atualizarAdministrador()
+{   
+    encontraPessoa encontraPessoa = preenchimentoEncontraPessoa();
+    bool encontrado = false;
+    for(int i = 0; i < funcionariosBD.getAdministradores().size(); i++)
+    {
+        if(funcionariosBD.getAdministradores()[i].getNome() == encontraPessoa.nome && funcionariosBD.getAdministradores()[i].getTelefone() == encontraPessoa.telefone)
+        {   
+            char atualizar;
+            cout << "atualizar? s/n";
+            cin >> atualizar;
+            if(atualizar == 's')
+            {
+                funcionariosBD.removeAdministrador(i);
+                incluirAdministrador();
+                printf("atualizado com sucesso!");
+            }
+            encontrado = true;
+        };
+    }
+    if(!encontrado) 
+    {
+        imprimeMensagemNaoEncontrado();
+    }
 }
 
 void PessoaService::incluirFornecedor()
@@ -102,6 +208,31 @@ void PessoaService::incluirFornecedor()
     funcionariosBD.adicionaFornecedor(fornecedor);
 }
 
+void PessoaService::atualizarFornecedor()
+{   
+    encontraPessoa encontraPessoa = preenchimentoEncontraPessoa();
+    bool encontrado = false;
+    for(int i = 0; i < funcionariosBD.getFornecedores().size(); i++)
+    {
+        if(funcionariosBD.getFornecedores()[i].getNome() == encontraPessoa.nome && funcionariosBD.getFornecedores()[i].getTelefone() == encontraPessoa.telefone)
+        {   
+            char atualizar;
+            cout << "atualizar? s/n";
+            cin >> atualizar;
+            if(atualizar == 's')
+            {
+                funcionariosBD.removeFornecedor(i);
+                incluirFornecedor();
+                printf("atualizado com sucesso!");
+            }
+            encontrado = true;
+        };
+    }
+    if(!encontrado) 
+    {
+        imprimeMensagemNaoEncontrado();
+    }
+}
 
 PessoaService::pessoa PessoaService::preenchimentoPadraoPessoa()
 {
@@ -125,6 +256,18 @@ PessoaService::empregado PessoaService::preenchimentoPadraoEmpregado()
     cout << "Porcentagem imposto: ";
     cin >> empregado.imposto;
     return empregado;
+}
+
+
+PessoaService::encontraPessoa PessoaService::preenchimentoEncontraPessoa()
+{
+    encontraPessoa encontraPessoa;
+    cout << "nome: ";
+    cin >> encontraPessoa.nome;
+    cout << "telefone: ";
+    cin >> encontraPessoa.telefone;
+
+    return encontraPessoa;
 }
 
 void PessoaService::listarCadastros()
@@ -247,3 +390,9 @@ void PessoaService::imprimeFornecedoresCadastrados(int contagem, int fim, vector
         if(contagem < fim) imprimeFornecedoresCadastrados(contagem, fim, fornecedores, true);
     }
 }
+
+void PessoaService::imprimeMensagemNaoEncontrado()
+{
+    cout << "Pessoa não econtrada!" << endl;
+    cout << endl;
+};
